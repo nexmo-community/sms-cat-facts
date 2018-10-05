@@ -19,6 +19,15 @@ const server = Hapi.Server({
     port: process.env.PORT || 8080
 });
 
+server.route({
+    method: 'GET',
+    path: '/register/{number}',
+    handler: async (request, h) => {
+        await registerNumber(request.params.number);
+        return h.response().code(204);
+    }
+})
+
 async function init() {
     await server.start();
     console.log(`Server started at: ${server.info.uri}`)
