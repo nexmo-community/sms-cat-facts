@@ -32,7 +32,9 @@ server.route({
     method: 'POST',
     path: '/webhooks/receive',
     handler: async (request, h) => {
-        console.log(request.payload);
+        const sender = request.payload.to;
+        const recipient = request.payload.msisdn;
+        sendCatFact(sender, recipient);
         return h.response().code(204);
     }
 })
