@@ -43,4 +43,9 @@ function registerNumber(number) {
     nexmo.message.sendSms(NEXMO_NUMBER, number, message);
 }
 
+function sendCatFact(sender, recipient) {
+    const message = "Cats are really cute." + generateCancelMessage();
+    nexmo.message.sendSms(sender, recipient, message);
+}
+
 init();
