@@ -1,5 +1,6 @@
 require('dotenv').load();
 const Nexmo = require('nexmo');
+const Hapi = require('hapi');
 
 // Constants
 const API_KEY = process.env.NEXMO_API_KEY;
@@ -14,6 +15,15 @@ const nexmo = new Nexmo({
     apiSecret: API_SECRET
 });
 
+const server = Hapi.Server({
+    port: process.env.PORT || 8080
+});
+
+async function init() {
+    await server.start();
+    console.log(`Server started at: ${server.info.uri}`)
+}
+
 function generateCancelMessage() {
     const keyword = CANCEL_KEYWORDS[Math.floor(Math.random() * CANCEL_KEYWORDS.length)];
     return `\nReply ${keyword} to stop.`;
@@ -23,3 +33,5 @@ function registerNumber(number) {
     const message = WELCOME_MESSAGE + generateCancelMessage();
     nexmo.message.sendSms(NEXMO_NUMBER, number, message);
 }
+
+init();
