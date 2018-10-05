@@ -1,0 +1,25 @@
+{
+  "name": "sms-cat-facts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nexmo-community/sms-cat-facts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nexmo-community/sms-cat-facts/issues"
+  },
+  "homepage": "https://github.com/nexmo-community/sms-cat-facts#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^6.0.0",
+    "hapi": "^17.6.0",
+    "nexmo": "^2.4.0"
+  }
+}
