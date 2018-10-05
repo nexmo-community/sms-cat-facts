@@ -1,6 +1,7 @@
 require('dotenv').load();
 const Nexmo = require('nexmo');
 const Hapi = require('hapi');
+const Axios = require('axios');
 
 // Constants
 const API_KEY = process.env.NEXMO_API_KEY;
@@ -34,7 +35,7 @@ server.route({
     handler: async (request, h) => {
         const sender = request.payload.to;
         const recipient = request.payload.msisdn;
-        sendCatFact(sender, recipient);
+        await sendCatFact(sender, recipient);
         return h.response().code(204);
     }
 })
@@ -54,9 +55,22 @@ function registerNumber(number) {
     nexmo.message.sendSms(NEXMO_NUMBER, number, message);
 }
 
-function sendCatFact(sender, recipient) {
-    const message = "Cats are really cute." + generateCancelMessage();
+async function sendCatFact(sender, recipient) {
+    const fact = await retrieveCatFact();
+    const message = fact + generateCancelMessage();
     nexmo.message.sendSms(sender, recipient, message);
+}
+
+async function retrieveCatFact() {
+    const response = await Axios.get('https://catfact.ninja/fact');
+    return replaceSmartQuotes(response.data.fact);
+}
+
+function replaceSmartQuotes(string) {
+    // The Cat Fact API uses smart quotes which require sending messages as unicode.
+    // You can send unicode messages with Nexmo, but it's easier to just replace them.
+    return string.replace(/[\u2018\u2019]/g, "'")
+    .replace(/[\u201C\u201D]/g, '"')
 }
 
 init();
