@@ -28,6 +28,15 @@ server.route({
     }
 })
 
+server.route({
+    method: 'POST',
+    path: '/webhooks/receive',
+    handler: async (request, h) => {
+        console.log(request.payload);
+        return h.response().code(204);
+    }
+})
+
 async function init() {
     await server.start();
     console.log(`Server started at: ${server.info.uri}`)
