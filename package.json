@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/nexmo-community/sms-cat-facts#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "dotenv": "^6.0.0",
     "hapi": "^17.6.0",
     "nexmo": "^2.4.0"
